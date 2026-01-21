@@ -41,6 +41,10 @@ const Countdown: React.FC = () => {
     </div>
   );
 
+  const eventDate = new Date(GRAND_OPENING_DATE);
+  const dateString = eventDate.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const timeString = eventDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
   if (isEventStarted) {
     return (
       <div className="py-8 animate-bounce">
@@ -50,14 +54,28 @@ const Countdown: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-wrap justify-center items-center py-4">
-      <TimeUnit value={timeLeft.days} label="Days" />
-      <span className="text-3xl md:text-5xl text-slate-300 font-light -mt-10 pb-1">:</span>
-      <TimeUnit value={timeLeft.hours} label="Hours" />
-      <span className="text-3xl md:text-5xl text-slate-300 font-light -mt-10 pb-1">:</span>
-      <TimeUnit value={timeLeft.minutes} label="Mins" />
-      <span className="text-3xl md:text-5xl text-slate-300 font-light -mt-10 pb-1">:</span>
-      <TimeUnit value={timeLeft.seconds} label="Secs" />
+    <div className="flex flex-col items-center w-full">
+      
+      {/* Date & Time Display */}
+      <div className="flex flex-col items-center mb-8 text-center animate-fade-in">
+        <h3 className="text-2xl md:text-4xl font-bold text-slate-800 mb-2">
+          {dateString}
+        </h3>
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 rounded-full text-slate-600 font-semibold text-sm md:text-base tracking-wide">
+          <span>at {timeString}</span>
+        </div>
+      </div>
+
+      {/* Countdown Timer */}
+      <div className="flex flex-wrap justify-center items-center py-4">
+        <TimeUnit value={timeLeft.days} label="Days" />
+        <span className="text-3xl md:text-5xl text-slate-300 font-light -mt-10 pb-1">:</span>
+        <TimeUnit value={timeLeft.hours} label="Hours" />
+        <span className="text-3xl md:text-5xl text-slate-300 font-light -mt-10 pb-1">:</span>
+        <TimeUnit value={timeLeft.minutes} label="Mins" />
+        <span className="text-3xl md:text-5xl text-slate-300 font-light -mt-10 pb-1">:</span>
+        <TimeUnit value={timeLeft.seconds} label="Secs" />
+      </div>
     </div>
   );
 };

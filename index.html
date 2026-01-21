@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth scroll-pt-24">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,7 +47,11 @@
     <style>
       body {
         font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+      /* Fallback for browsers not supporting class based smooth scroll */
+      html {
         scroll-behavior: smooth;
+        scroll-padding-top: 6rem; /* Ensures sticky header doesn't cover content */
       }
       .glass-card {
         background: rgba(255, 255, 255, 0.9);

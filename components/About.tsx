@@ -1,5 +1,5 @@
 import React from 'react';
-import EventSchedule from './EventSchedule';
+import EventSchedule from '../lib/EventSchedule';
 import { Quote, PartyPopper } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -35,8 +35,15 @@ const About: React.FC = () => {
                </p>
                <div className="mt-4 flex items-center gap-3">
                  <div className="w-10 h-10 bg-slate-200 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                    {/* Placeholder for Founder Image - African Doctor */}
-                    <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=100&h=100&fm=webp" alt="Founder" className="w-full h-full object-cover" />
+                    {/* Founder Image - Optimized via Unsplash params and Lazy Loaded */}
+                    <img 
+                      src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&q=80&w=100&h=100&fm=webp" 
+                      alt="Founder" 
+                      className="w-full h-full object-cover" 
+                      loading="lazy"
+                      width="100"
+                      height="100"
+                    />
                  </div>
                  <div>
                     <p className="text-sm font-bold text-slate-900">Hospital Administration</p>
