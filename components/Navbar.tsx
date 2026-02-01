@@ -4,9 +4,10 @@ import Logo from './Logo';
 
 interface NavbarProps {
   onOpenRSVP: () => void;
+  lightMode?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenRSVP }) => {
+const Navbar: React.FC<NavbarProps> = ({ onOpenRSVP, lightMode = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -90,8 +91,12 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenRSVP }) => {
               className="block group"
             >
               {/* Floating Title Design Container */}
-              <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 p-2 md:p-3 flex items-center justify-center hover:shadow-[0_8px_30px_rgb(0,0,0,0.18)] transition-shadow">
-                 <Logo className="h-10 md:h-14 w-auto" />
+              <div className={`rounded-2xl p-2 md:p-3 flex items-center justify-center transition-all ${
+                lightMode && !isScrolled 
+                  ? 'bg-transparent' 
+                  : 'bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.18)]'
+              }`}>
+                 <Logo className="h-10 md:h-14 w-auto" lightMode={lightMode && !isScrolled} />
               </div>
             </a>
           </div>
@@ -100,6 +105,18 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenRSVP }) => {
           <div className="hidden md:flex items-center space-x-2">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
+              // Determine text color based on scroll state and lightMode
+              let textColorClass = 'text-slate-800';
+              if (isActive) {
+                textColorClass = 'text-adlai-blue';
+              } else if (isScrolled) {
+                textColorClass = 'text-slate-600 hover:bg-slate-50';
+              } else if (lightMode) {
+                textColorClass = 'text-white hover:bg-white/10';
+              } else {
+                textColorClass = 'text-slate-800 hover:bg-white/50';
+              }
+
               return (
                 <a
                   key={link.name}
@@ -108,9 +125,10 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenRSVP }) => {
                   className={`
                     font-bold uppercase tracking-wide text-xs transition-all px-4 py-2 rounded-full cursor-pointer
                     ${isActive 
-                      ? 'text-adlai-blue bg-blue-50 shadow-sm' 
-                      : isScrolled ? 'text-slate-600 hover:bg-slate-50' : 'text-slate-800 hover:bg-white/50'
+                      ? 'bg-blue-50 shadow-sm' 
+                      : ''
                     }
+                    ${textColorClass}
                   `}
                 >
                   {link.name}
@@ -132,7 +150,11 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenRSVP }) => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="focus:outline-none text-slate-800 bg-white/80 p-2 rounded-lg backdrop-blur-sm shadow-sm"
+              className={`focus:outline-none p-2 rounded-lg backdrop-blur-sm shadow-sm transition-colors ${
+                lightMode && !isScrolled 
+                  ? 'text-white bg-slate-900/30 hover:bg-slate-900/50' 
+                  : 'text-slate-800 bg-white/80'
+              }`}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>

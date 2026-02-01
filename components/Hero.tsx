@@ -21,7 +21,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenRSVP }) => {
 
         {/* 1. Background Image - Clearer Visibility */}
         <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-30 transition-opacity duration-1000"
+          className="absolute inset-0 w-full h-full bg-cover bg-center opacity-80 transition-opacity duration-1000"
           style={{ backgroundImage: `url(${bgImage})` }}
         ></div>
 
